@@ -9,6 +9,10 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -88,6 +92,48 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+// Tabbed component
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate tab
+  clicked.classList.add('operations__tab--active');
+
+  // Activate content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+// Menu fade animation
+
+const handleHover = function (e) {
+  console.log(this, e.currentTarget);
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+//////////////////////////////
 const header = document.querySelector('.header');
 
 const allSelections = document.querySelectorAll('section');
@@ -110,26 +156,3 @@ message.innerHTML =
 // header.before(message);
 header.after(message);
 // header.append(message.cloneNode(true));
-
-// Delete
-
-document
-  .querySelector('.btn__close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
-
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
-// console.log(getComputedStyle(message).color);
-// console.log(getComputedStyle(message).height);
-
-message.style.height =
-  Number.parseInt(getComputedStyle(message).height, 10) + 20 + 'px';
-
-document.documentElement.style.setProperty('--color-primary', 'orangered');
-
-const logo = document.querySelector('.nav__logo');
-// console.log(logo.className);
-
-logo.alt = 'Beautiful min logo';
