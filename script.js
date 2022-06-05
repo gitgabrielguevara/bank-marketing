@@ -133,11 +133,55 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-//////////////////////////////
-const header = document.querySelector('.header');
+// Sticky Navigation
+// const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
 
-const allSelections = document.querySelectorAll('section');
-// console.log(allSelections);
+// window.addEventListener('scroll', function () {
+//   console.log(window.scrollY);
+//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sitcky');
+// });
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  console.log(entries);
+
+  if (entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `${navHeight}px`,
+});
+
+headerObserver.observe(header);
+// Reveal sections
+const allSelections = document.querySelectorAll('.section');
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSelections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+// const observer = new IntersectionObserver();
+// observer.observe(section1);
+
+//////////////////////////////
 
 document.getElementById('section--1');
 const allButtons = document.getElementsByTagName('button');
@@ -156,3 +200,68 @@ message.innerHTML =
 // header.before(message);
 header.after(message);
 // header.append(message.cloneNode(true));
+// Delete ////////////////
+
+document
+  .querySelector('.btn__close-cookie')
+  .addEventListener('click', function () {
+    message.remove();
+  });
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+// console.log(getComputedStyle(message).color);
+// console.log(getComputedStyle(message).height);
+
+message.style.height =
+  Number.parseInt(getComputedStyle(message).height, 10) + 20 + 'px';
+
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+const logo = document.querySelector('.nav__logo');
+// console.log(logo.className);
+
+logo.alt = 'Beautiful min logo';
+
+// const h1 = document.querySelector('h1');
+// // h1.addEventListener('mouseenter', function (e) {
+// //   alert('addEventLstener: Great u r reading the heaing');
+// // });
+
+// // h1.onmouseenter = function (e) {
+// //   alert('addEventLstener: Great u r reading the heaing');
+// // };
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target);
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target);
+// });
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target);
+// });
+
+// const h1 = document.querySelector('h1');
+// //  Going downwards: child
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
