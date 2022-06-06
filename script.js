@@ -331,3 +331,54 @@ const logo = document.querySelector('.nav__logo');
 // console.log(logo.className);
 
 logo.alt = 'Beautiful min logo';
+
+// const h1 = document.querySelector('h1');
+// // h1.addEventListener('mouseenter', function (e) {
+// //   alert('addEventLstener: Great u r reading the heaing');
+// // });
+
+// // h1.onmouseenter = function (e) {
+// //   alert('addEventLstener: Great u r reading the heaing');
+// // };
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target);
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target);
+// });
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target);
+// });
+
+// const h1 = document.querySelector('h1');
+// //  Going downwards: child
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
+
+document.addEventListener('DOMcontentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built', e);
+});
+
+window.addEventListener('load', function (e) {
+  console.log('Page Fully loadded', e);
+});
